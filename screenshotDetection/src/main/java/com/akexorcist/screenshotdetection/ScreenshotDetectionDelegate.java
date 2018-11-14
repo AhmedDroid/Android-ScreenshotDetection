@@ -44,12 +44,12 @@ public class ScreenshotDetectionDelegate {
 
         @Override
         public void onChange(boolean selfChange) {
-            super.onChange(selfChange);
+            super.onChange(true);
         }
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
-            super.onChange(selfChange, uri);
+            super.onChange(true, uri);
             if (isReadExternalStoragePermissionGranted()) {
                 String path = getFilePathFromContentResolver(activityWeakReference.get(), uri);
                 if (isScreenshotPath(path)) {
@@ -83,7 +83,7 @@ public class ScreenshotDetectionDelegate {
                     MediaStore.Images.Media.DISPLAY_NAME,
                     MediaStore.Images.Media.DATA
             }, null, null, null);
-            if (cursor != null && cursor.moveToFirst()) {
+            if (cursor != null && cursor.moveToLast()) {
                 String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
                 cursor.close();
                 return path;
